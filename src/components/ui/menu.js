@@ -14,6 +14,7 @@ import {
   MenubarSubTrigger,
   MenubarTrigger,
 } from "@/components/ui/menubar";
+import Link from "next/link";
 
 export function Menu() {
   return (
@@ -23,7 +24,9 @@ export function Menu() {
         <MenubarContent>
           <MenubarItem>About Editify</MenubarItem>
           <MenubarItem>
-            Quit Editify <MenubarShortcut>⌘Q</MenubarShortcut>
+            <Link href="/">
+              Quit Editify <MenubarShortcut>⌘Q</MenubarShortcut>
+            </Link>
           </MenubarItem>
         </MenubarContent>
       </MenubarMenu>
@@ -33,28 +36,36 @@ export function Menu() {
           <MenubarSub>
             <MenubarSubTrigger>New</MenubarSubTrigger>
             <MenubarSubContent className="w-[230px]">
-              <MenubarItem>
-                Quick Start <MenubarShortcut>⌘N</MenubarShortcut>
-              </MenubarItem>
+              <Link href="/project">
+                <MenubarItem>
+                  Quick Start <MenubarShortcut>⌘N</MenubarShortcut>
+                </MenubarItem>
+              </Link>
+
               <MenubarSub>
                 <MenubarSubTrigger>From Template</MenubarSubTrigger>
                 <MenubarSubContent>
-                  <MenubarItem>Template 1</MenubarItem>
-                  <MenubarItem>Template 2</MenubarItem>
-             
+                  <Link href="/project">
+                    <MenubarItem>Template 1</MenubarItem>
+                  </Link>
+                  <Link href="/project">
+                    <MenubarItem>Template 2</MenubarItem>
+                  </Link>
                 </MenubarSubContent>
               </MenubarSub>
             </MenubarSubContent>
           </MenubarSub>
 
-          <MenubarItem>
-            Close Window <MenubarShortcut>⌘W</MenubarShortcut>
-          </MenubarItem>
+          <Link href="/">
+            <MenubarItem>
+              Close Window <MenubarShortcut>⌘W</MenubarShortcut>
+            </MenubarItem>
+          </Link>
           <MenubarSeparator />
           <MenubarSub>
-          <MenubarItem>
-            Save Template <MenubarShortcut>⌘T</MenubarShortcut>
-          </MenubarItem>
+            <MenubarItem>
+              Save Template <MenubarShortcut>⌘T</MenubarShortcut>
+            </MenubarItem>
             <MenubarSubTrigger>Import</MenubarSubTrigger>
             <MenubarSubContent>
               <MenubarItem>Media</MenubarItem>

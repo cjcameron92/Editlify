@@ -1,182 +1,182 @@
-import Image from "next/image";
-import { Menu } from "@/components/ui/menu";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { Label } from "@/components/ui/label";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Menu } from "@/components/ui/menu";
 
-import { Switch } from "@/components/ui/switch";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+const projects = [
+  {
+    title: "3p94 Demo",
+    date: "02/10/2024",
+  },
+  {
+    title: "Orion Launch",
+    date: "03/15/2024",
+  },
+  {
+    title: "Halo Initiative",
+    date: "04/22/2024",
+  },
+  {
+    title: "Project Phoenix",
+    date: "05/30/2024",
+  },
+  {
+    title: "Neptune's Trident",
+    date: "06/12/2024",
+  },
+  {
+    title: "Athena Revival",
+    date: "07/19/2024",
+  },
 
-export default function Home() {
+];
+
+export default function NewProject() {
   return (
-    <>
-      <div>
-        <div className="flex justify-between">
-          <Menu />
+    <div className="flex flex-col min-h-screen">
+      <Menu />
+      <div className="flex flex-1 justify-center items-start p-8 gap-16">
+        <div className="flex flex-col space-y-6 max-w-xs">
+          <h1 className="text-2xl font-bold self-center">Recent Projects</h1>
 
-          <div></div>
-          <div className="mr-16 mt-2">
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button variant="outline">Export</Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-96 p-4">
-                <div className="flex flex-col gap-6">
-                  <h4 className="font-medium text-lg">Export Settings</h4>
-                  <div className="space-y-4">
-                    <div>
-                      <Label htmlFor="format">Format</Label>
-                      <Select id="format" className="mt-1">
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select Format" />
-                        </SelectTrigger>
-                        <SelectContent position="popper">
-                          <SelectItem value="mp4">MP4</SelectItem>
-                          <SelectItem value="mov">MOV</SelectItem>
-                          <SelectItem value="avi">AVI</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div>
-                      <Label htmlFor="resolution">Resolution</Label>
-                      <Select id="resolution" className="mt-1">
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select Resolution" />
-                        </SelectTrigger>
-                        <SelectContent position="popper">
-                          <SelectItem value="1080p">1080p</SelectItem>
-                          <SelectItem value="720p">720p</SelectItem>
-                          <SelectItem value="4k">4K</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div>
-                      <Label htmlFor="platform">Social Media Platform</Label>
-                      <Select id="platform" className="mt-1">
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select Platform" />
-                        </SelectTrigger>
-                        <SelectContent position="popper">
-                          <SelectItem value="youtube">YouTube</SelectItem>
-                          <SelectItem value="facebook">Facebook</SelectItem>
-                          <SelectItem value="instagram">Instagram</SelectItem>
-                          <SelectItem value="twitter">Twitter</SelectItem>
-                          <SelectItem value="tiktok">TikTok</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <Switch id="airplane-mode" />
-                      <Label htmlFor="airplane-mode">Publish Directly</Label>
-                    </div>
-                  </div>
-                  <div className="flex justify-end gap-2">
-                    <Button variant="outline">Cancel</Button>
-                    <Button>Export</Button>
+          <div className="text-center">
+            <label
+              htmlFor="upload"
+              className="cursor-pointer py-2 px-4 bg-blue-500 text-white rounded-lg shadow hover:bg-blue-600 transition duration-150 ease-in-out"
+            >
+              Open Project From File
+            </label>
+            <input id="upload" type="file" className="hidden" accept=".json" />{" "}
+            {/* Change the accept attribute based osn your project file format */}
+          </div>
+          <div className="divide-y divide-border rounded-md border">
+            {projects.map((project, i) => (
+              <div key={i} className="flex items-center justify-between p-4 hover:bg-gray-100">
+                <div className="grid gap-1">
+                  <Link
+                    href={`/project`}
+                    className="font-semibold hover:underline"
+                  >
+                    {project.title}
+                  </Link>
+                  <div>
+                    <p className="text-sm text-muted-foreground">{project.date}</p>
                   </div>
                 </div>
-              </PopoverContent>
-            </Popover>
+              </div>
+            ))}
           </div>
         </div>
-        <div className="justify-between items-center flex">
-          <div className="flex justify-between">
-            <div className="flex flex-col space-y-8 ml-8">
-              <button className="p-2 hover:rounded-sm hover:bg-gray-200">
-                Media
-              </button>
-              <button className="p-2 hover:rounded-sm hover:bg-gray-200">
-                Transitions
-              </button>
-              <button className="p-2 hover:rounded-sm hover:bg-gray-200">
-                Text and Headings
-              </button>
-              <button className="p-2 hover:rounded-sm hover:bg-gray-200">
-                Animations
-              </button>
-            </div>
-            <div className="grid grid-cols-4 gap-4 mb-4 ml-32">
-              {[...Array(10)].map((_, index) => (
-                <button
-                  key={index}
-                  className="hover:transition hover:duration-300 hover:ease-in-out hover:transform group-hover:scale-110"
-                >
-                  <Image
-                    key={index}
-                    src="/assets/images/sample_video.png"
-                    alt="Sample Video"
-                    width={256}
-                    height={64}
-                  />
-                </button>
-              ))}
-            </div>
-          </div>
-          <div>
-            <Image
-              src="/assets/images/sample_video.png"
-              alt="Sample Video"
-              width={1080}
-              height={350}
-            />
-          </div>
-        </div>
-        <div className="h-16 bg-gray-200 flex justify-between items-center">
-          <div className="flex space-x-8 mx-96">
-            <button className="p-2 hover:rounded-sm hover:bg-gray-500">
-              <Image
-                src="/assets/icons/scissors.png"
-                alt="Cut"
-                height={32}
-                width={32}
-              />
-            </button>
-            <button className="p-2 hover:rounded-sm hover:bg-gray-500">
-              <Image
-                src="/assets/icons/trim.png"
-                alt="Trim"
-                height={32}
-                width={32}
-              />
-            </button>
-            <button className="p-2 hover:rounded-sm hover:bg-gray-500">
-              <Image
-                src="/assets/icons/click.png"
-                alt="Select"
-                height={32}
-                width={32}
-              />
-            </button>
-            <button className="p-2 hover:rounded-sm hover:bg-gray-500">
-              {" "}
-              <Image
-                src="/assets/icons/zoom-in.png"
-                alt="Zoom"
-                height={32}
-                width={32}
-              />
-            </button>
-          </div>
-          <div className="flex mx-96 space-x-8">
-            <button className="hover:bg-gray-300 hover:rounded-sm">
-              <Image
-                src="/assets/icons/play.png"
-                alt="Play"
-                height={32}
-                width={32}
-              />
-            </button>
-
-            <p className="text-lg">0:00</p>
-          </div>
-        </div>
-        <div className="h-64 bg-gray-800"></div>
-        <div className="h-32 bg-gray-600"></div>
+        <Card className="w-[350px] shadow-lg rounded-lg text-center mt-12">
+          <CardHeader>
+            <CardTitle>New Project</CardTitle>
+            <CardDescription>Start editing your video</CardDescription>
+          </CardHeader>
+          <CardContent className="p-4">
+            <form className="space-y-4">
+              <div className="flex flex-col">
+                <Label htmlFor="title">Title</Label>
+                <Input
+                  id="title"
+                  placeholder="Name of your project"
+                  className="mt-1"
+                />
+              </div>
+              <div className="flex flex-col">
+                <Label htmlFor="videoFormat">Video Format</Label>
+                <Select className="mt-1" id="videoFormat">
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select" />
+                  </SelectTrigger>
+                  <SelectContent position="popper">
+                    <SelectItem value="vertical">Vertical</SelectItem>
+                    <SelectItem value="horizontal">Horizontal</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="flex flex-col">
+                <Label htmlFor="resolution">Resolution</Label>
+                <Select className="mt-1" id="resolution">
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select" />
+                  </SelectTrigger>
+                  <SelectContent position="popper">
+                    <SelectItem value="1080p">1080p</SelectItem>
+                    <SelectItem value="4k">4K</SelectItem>
+                    <SelectItem value="720p">720p</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="flex flex-col">
+                <Label htmlFor="aspectRatio">Aspect Ratio</Label>
+                <Select className="mt-1" id="aspectRatio">
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select" />
+                  </SelectTrigger>
+                  <SelectContent position="popper">
+                    <SelectItem value="16:9">16:9</SelectItem>
+                    <SelectItem value="4:3">4:3</SelectItem>
+                    <SelectItem value="1:1">1:1 (Square)</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="flex flex-col">
+                <Label htmlFor="frameRate">Frame Rate</Label>
+                <Select className="mt-1" id="frameRate">
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select" />
+                  </SelectTrigger>
+                  <SelectContent position="popper">
+                    <SelectItem value="24fps">24 fps (Cinema)</SelectItem>
+                    <SelectItem value="30fps">30 fps (Standard)</SelectItem>
+                    <SelectItem value="60fps">
+                      60 fps (High Frame Rate)
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="flex flex-col">
+                <Label htmlFor="intendedPlatform">Intended Platform</Label>
+                <Select className="mt-1" id="intendedPlatform">
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select" />
+                  </SelectTrigger>
+                  <SelectContent position="popper">
+                    <SelectItem value="youtube">YouTube</SelectItem>
+                    <SelectItem value="instagram">Instagram</SelectItem>
+                    <SelectItem value="tiktok">TikTok</SelectItem>
+                    <SelectItem value="facebook">Facebook</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </form>
+          </CardContent>
+          <CardFooter className="flex justify-between p-4 bg-gray-50">
+            <Button variant="outline">Cancel</Button>
+            <Button>
+              <Link href="/project" passHref>
+                Create
+              </Link>
+            </Button>
+          </CardFooter>
+        </Card>
       </div>
-    </>
+    </div>
   );
 }
