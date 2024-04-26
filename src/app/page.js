@@ -18,6 +18,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Menu } from "@/components/ui/menu";
+import { Menu2 } from "@/components/ui/menu2";
 
 const projects = [
   {
@@ -50,7 +51,7 @@ const projects = [
 export default function NewProject() {
   return (
     <div className="flex flex-col min-h-screen">
-      <Menu />
+      <Menu2 />
       <div className="flex flex-1 justify-center items-start p-8 gap-16">
         <div className="flex flex-col space-y-6 max-w-xs">
           <h1 className="text-2xl font-bold self-center">Recent Projects</h1>
@@ -139,20 +140,7 @@ export default function NewProject() {
                   </SelectContent>
                 </Select>
               </div>
-              <div className="flex flex-col">
-                <Label htmlFor="intendedPlatform">Intended Platform</Label>
-                <Select className="mt-1" id="intendedPlatform">
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select" />
-                  </SelectTrigger>
-                  <SelectContent position="popper">
-                    <SelectItem value="youtube">YouTube</SelectItem>
-                    <SelectItem value="instagram">Instagram</SelectItem>
-                    <SelectItem value="tiktok">TikTok</SelectItem>
-                    <SelectItem value="facebook">Facebook</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
+             
             </form>
           </CardContent>
           <CardFooter className="flex justify-between p-4 bg-gray-50">
