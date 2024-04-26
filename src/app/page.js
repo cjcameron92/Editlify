@@ -110,19 +110,7 @@ export default function NewProject() {
                   </SelectContent>
                 </Select>
               </div>
-              <div className="flex flex-col">
-                <Label htmlFor="resolution">Resolution</Label>
-                <Select className="mt-1" id="resolution">
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select" />
-                  </SelectTrigger>
-                  <SelectContent position="popper">
-                    <SelectItem value="1080p">1080p</SelectItem>
-                    <SelectItem value="4k">4K</SelectItem>
-                    <SelectItem value="720p">720p</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
+            
               <div className="flex flex-col">
                 <Label htmlFor="aspectRatio">Aspect Ratio</Label>
                 <Select className="mt-1" id="aspectRatio">

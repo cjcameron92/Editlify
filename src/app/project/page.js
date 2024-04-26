@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/popover";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-
 import { Switch } from "@/components/ui/switch";
 import {
   Select,
@@ -19,6 +18,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useState } from "react";
+
+import { useToast } from "@/components/ui/use-toast";
 
 const images = [
   "sample_video.png",
@@ -30,15 +31,16 @@ const images = [
 export default function Home() {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
+  const iconContainerStyle = "flex space-x-4 overflow-auto";
+  const { toast } = useToast();
 
   return (
     <>
-      <div>
-        <div className="flex justify-between">
+      <div className="flex">
+        <div className="w-1/2 p-4">
+          <div className="flex justify-between">
           <Menu />
-
-          <div></div>
-          <div className="mr-16 mt-2">
+          <div>
             <Popover>
               <PopoverTrigger asChild>
                 <Button variant="outline" className="mt-2 mb-2">Export</Button>
@@ -95,155 +97,185 @@ export default function Home() {
                   </div>
                   <div className="flex justify-end gap-2">
                     <Button variant="outline">Cancel</Button>
-                    <Button>Export</Button>
+                    <Button       onClick={() => {
+        toast({
+          title: "Publishing",
+          description: "Video is being processed!",
+        })
+      }}>Export</Button>
                   </div>
                 </div>
               </PopoverContent>
             </Popover>
           </div>
-        </div>
-        <div className="justify-between items-center flex">
-          <div className="flex justify-between">
-            <div className="flex flex-col space-y-8 ml-8">
-              <button
-                className="p-2 hover:rounded-sm hover:bg-gray-200"
-                onClick={() => setIndex(0)}
-              >
-                Media
-              </button>
-              <button
-                className="p-2 hover:rounded-sm hover:bg-gray-200"
-                onClick={() => setIndex(1)}
-              >
-                Transitions
-              </button>
-              <button
-                className="p-2 hover:rounded-sm hover:bg-gray-200"
-                onClick={() => setIndex(2)}
-              >
-                Text and Headings
-              </button>
-              <button
-                className="p-2 hover:rounded-sm hover:bg-gray-200"
-                onClick={() => setIndex(3)}
-              >
-                Animations
-              </button>
+          </div>
+                  <div className="flex flex-col space-y-4">
+            <div className="flex space-x-2">
+              <button className="px-4 py-2 text-sm font-semibold hover:bg-gray-200" onClick={() => setIndex(0)}>Media</button>
+              <button className="px-4 py-2 text-sm font-semibold hover:bg-gray-200" onClick={() => setIndex(1)}>Transitions</button>
+              <button className="px-4 py-2 text-sm font-semibold hover:bg-gray-200" onClick={() => setIndex(2)}>Text and Headings</button>
+              <button className="px-4 py-2 text-sm font-semibold hover:bg-gray-200" onClick={() => setIndex(3)}>Animations</button>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 sm:ml-8 md:grid-cols-3 md:ml-16 lg:grid-cols-4 lg:ml-8 gap-4 mb-4 ml-32">
-              {[...Array(10)].map((_, i) => (
-                <button
-                  key={i}
-                  className="hover:transition hover:duration-300 hover:ease-in-out hover:transform group-hover:scale-110"
-                >
+            <div className="grid grid-cols-2 gap-4">
+              {[...Array(4)].map((_, i) => (
+                <button key={i} className="hover:transition hover:duration-300 hover:ease-in-out hover:transform hover:scale-110" onClick={() => {
+                  toast({
+                    title: "Imported Media",
+                    description: "Drag n Drop onto the track",
+                  });
+                }}>
                   <Image
-                    key={i}
                     src={`/assets/images/${images[index]}`}
                     alt="Sample Video"
-                    width={256}
+                    width={128}
                     height={64}
+                    layout="responsive"
                   />
                 </button>
               ))}
             </div>
           </div>
-          <div>
-            <Image
-              src="/assets/images/sample_video.png"
-              alt="Sample Video"
-              width={1080}
-              height={350}
-            />
-          </div>
         </div>
-        <div className="h-16 bg-gray-200 flex justify-between items-center">
-          <div className="flex space-x-8 mx-96">
-            <button className="p-2 hover:rounded-sm hover:bg-gray-500">
-              <Image
-                src="/assets/icons/scissors.png"
-                alt="Cut"
-                height={32}
-                width={32}
-              />
-            </button>
-            <button className="p-2 hover:rounded-sm hover:bg-gray-500">
-              <Image
-                src="/assets/icons/trim.png"
-                alt="Trim"
-                height={32}
-                width={32}
-              />
-            </button>
-            <button className="p-2 hover:rounded-sm hover:bg-gray-500">
-              <Image
-                src="/assets/icons/click.png"
-                alt="Select"
-                height={32}
-                width={32}
-              />
-            </button>
-            <button className="p-2 hover:rounded-sm hover:bg-gray-500">
-              {" "}
-              <Image
-                src="/assets/icons/zoom-in.png"
-                alt="Zoom"
-                height={32}
-                width={32}
-              />
-            </button>
-          </div>
-          <div className="flex mx-96 space-x-8">
-            <button className="hover:bg-gray-300 hover:rounded-sm">
-              <Image
-                src="/assets/icons/rewind-symbol.png"
-                alt="Play"
-                height={32}
-                width={32}
-              />
-            </button>
-            <button className="hover:bg-gray-300 hover:rounded-sm" onClick={() => setPaused(!paused)}>
-              <Image
-                src={paused === false ? '/assets/icons/play.png' : '/assets/icons/pause.png'}
-                alt="Play"
-                height={32}
-                width={32}
-              />
-            </button>
-            <button className="hover:bg-gray-300 hover:rounded-sm">
-              <Image
-                src="/assets/icons/fast-forward.png"
-                alt="Play"
-                height={32}
-                width={32}
-              />
-            </button>
-            <p className="text-lg">0:00</p>
-          </div>
-        </div>
-        <div className="relative h-96 bg-gray-800">
-          <div className="absolute bottom-0 left-0 right-0 h-1 bg-gray-600"></div>
-          {[...Array(9)].map((_, i) => (
-            <div
-            key={i}
-            className="absolute top-0"
-              style={{ left: `calc(${(i / 8) * 110}% - 1px)` }}
-            >
-              <div className="h-4 w-0.5 bg-gray-600"></div>
-              <p className="text-xs text-gray-400 mt-2">
-                {new Date(i * 15 * 1000).toISOString().substr(14, 5)}
-              </p>
-            </div>
-          ))}
+        <div className="w-1/2 p-4 mt-28">
+          
           <Image
             src="/assets/images/sample_video.png"
             alt="Sample Video"
-            width={250}
-            height={64}
-            className="absolute bottom-1"
+            width={512}
+            height={350}
+            layout="responsive"
           />
-        </div>{" "}
-        <div className="h-32 bg-gray-600"></div>
+        </div>
       </div>
+      <div className="h-32 bg-gray-200 flex justify-between items-center px-4">
+        <div className={iconContainerStyle}>
+          <button className="p-2 hover:rounded-sm hover:bg-gray-500" onClick={() => {
+            toast({
+              title: "Cut Tool",
+              description: "Select a part of a video to split",
+            })
+          }}>
+            <Image
+              src="/assets/icons/scissors.png"
+              alt="Cut"
+              width={32}
+              height={32}
+              layout="fixed"
+            />
+          </button>
+          <button className="p-2 hover:rounded-sm hover:bg-gray-500"       onClick={() => {
+        toast({
+          title: "Trim Tool",
+          description: "Trim your media files down",
+        })
+      }}>
+            <Image
+              src="/assets/icons/trim.png"
+              alt="Trim"
+              width={32}
+              height={32}
+              layout="fixed"
+            />
+          </button            >
+
+          <button className="p-2 hover:rounded-sm hover:bg-gray-500"       onClick={() => {
+        toast({
+          title: "Select Tool",
+          description: "Select a position in the track",
+        })
+      }}>
+
+            <Image
+              src="/assets/icons/click.png"
+              alt="Select"
+              width={32}
+              height={32}
+              layout="fixed"
+            />
+          </button>
+          <button className="p-2 hover:rounded-sm hover:bg-gray-500"       onClick={() => {
+        toast({
+          title: "Zoom Tool",
+          description: "Zoom in or out in the media tracks",
+        })
+      }}>
+            <Image
+              src="/assets/icons/zoom-in.png"
+              alt="Zoom"
+              width={32}
+              height={32}
+              layout="fixed"
+            />
+          </button>
+        </div>
+        <div className={iconContainerStyle}>
+          <button className="hover:bg-gray-300 hover:rounded-sm"       onClick={() => {
+        toast({
+          title: "Rewind Tool",
+          description: "Rewind to your target destination",
+        })
+      }}>
+            <Image
+              src="/assets/icons/rewind-symbol.png"
+              alt="Rewind"
+              width={32}
+              height={32}
+              layout="fixed"
+            />
+          </button>
+          <button className="hover:bg-gray-300 hover:rounded-sm" onClick={() => setPaused(!paused)}>
+            <Image
+              src={paused ? '/assets/icons/pause.png' : '/assets/icons/play.png'}
+              alt="Play/Pause"
+              width={32}
+              height={32}
+              layout="fixed"
+            />
+          </button>
+          <button className="hover:bg-gray-300 hover:rounded-sm"       onClick={() => {
+        toast({
+          title: "Fast Forward",
+          description: "Skip along to target destination",
+        })
+      }}>
+            <Image
+              src="/assets/icons/fast-forward.png"
+              alt="Fast Forward"
+              width={32}
+              height={32}
+              layout="fixed"
+            />
+          </button>
+          <p className="text-lg">0:00</p>
+        </div>
+      </div>
+      <div className="relative h-96 bg-gray-800">
+        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gray-600"></div>
+        {[...Array(8)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute top-0"
+            style={{ left: `calc(${(i / 7) * 100}% - 1px)` }}
+          >
+            <div className="h-full w-0.5 bg-gray-600 opacity-50"></div>
+            <p className="text-xs text-gray-400" style={{ marginTop: `calc(100% - 20px)` }}>
+              {new Date(i * 15 * 1000).toISOString().substr(14, 5)}
+            </p>
+          </div>
+        ))}
+        <Image
+          src="/assets/images/sample_video.png"
+          alt="Sample Video"
+          width={250}
+          height={64}
+          layout="fixed"
+          className="absolute bottom-1"
+        />
+        <div className="absolute top-0 ml-16 transform -translate-x-1/2 w-1 bg-red-500 h-full"></div>
+
+      </div>
+      <div className="h-32 bg-gray-600"></div>
     </>
   );
 }
+
